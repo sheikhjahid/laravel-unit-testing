@@ -18,14 +18,14 @@ Route::get('/', function()
 	return "welcome to the testing app";
 });
 
-Route::post('users', 'UserController@addUserData');
+// Route::post('users', 'UserController@addUserData');
 
-Route::post('login', 'UserController@login');
+// Route::post('login', 'UserController@login');
 
-Route::middleware('jwt.auth')->get('users', function() {
-    return auth('api')->user;
+// Route::middleware('jwt.auth')->get('users', function() {
+//     return auth('api')->user;
     
-});
+// });
 
 // Route::group([
 // 	'middleware' => 'api',
@@ -41,6 +41,16 @@ Route::middleware('jwt.auth')->get('users', function() {
 	Route::get('post-delete/{id}', 'AccessorController@deletePostData');
 
 	Route::post('posts', 'AccessorController@addPostData');
+
+	Route::post('users', 'UserController@addUserData');
+
+	Route::get('users', 'UserController@getUserData');
+
+	Route::get('user/{id}', 'UserController@getUserDataById');
+
+	Route::put('user/{id}','UserController@updateUserData');
+
+	Route::get('user-delete/{id}', 'UserController@deleteUserData');
 
 // });
 Route::post('logout', 'UserController@logout');

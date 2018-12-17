@@ -22,14 +22,14 @@ class ExampleTest extends TestCase
 
     public function testJsonPostData()
     {
-        $response = $this->json('GET', 'api/test/posts/');
+        $response = $this->json('GET', 'api/posts/');
         $post = ["title 6", "title 4"];
         $this->assertEquals(["title 6", "title 4"], $post);
     }
 
     public function testJsonPost()
     {
-        $response = $this->json('GET', 'api/test/posts');
+        $response = $this->json('GET', 'api/posts');
         $checkJsonData = array(
             [
                 'name' => 'Title 1',
@@ -46,7 +46,7 @@ class ExampleTest extends TestCase
 
     public function testJsonGetPostDataById()
     {
-        $response = $this->json('GET', 'api/test/post/1');
+        $response = $this->json('GET', 'api/post/1');
         $checkJsonData = [
             'name' => 'Title 1'
         ];
@@ -56,29 +56,97 @@ class ExampleTest extends TestCase
 
     public function testJsonAddPostData()
     {
-        $requestData = ['title' => 'Title 6'];
-        $response = $this->json('POST', 'api/test/posts', $requestData);
-        $response->assertJson(['message' => 'Post data created successfully'||'Unable to add post data']);
+        $requestData = ['title' => 'Title 7'];
+        $response = $this->json('POST', 'api/posts', $requestData);
+        $response->assertJson(['message' => 'Post data created successfully']);
     }
 
     public function testJsonUpdatePostData()
     {
         $requestData = ['title' => 'Title 5 updated'];
-        $response = $this->json('PUT', 'api/test/post/5', $requestData);
-        $response->assertJson(['message' => 'Post data updated successfully'||'Unable to update post-data']);
+        $response = $this->json('PUT', 'api/post/5', $requestData);
+        $response->assertJson(['message' => 'Post data updated successfully']);
     }    
     public function testJsonDeletePostData()
     {
-        $response = $this->json('GET', 'api/test/post-delete/3');
+        $response = $this->json('GET', 'api/post-delete/3');
 
-        $response->assertJson(['message' => 'Post data deleted successfully'||'Unable to delete post data']);
+        $response->assertJson(['message' => 'Post data deleted successfully']);
     }
 
-    public function testJsonUserLogout()
+    public function testJsonAddUserData()
     {
-        $response = $this->json('POST', 'api/logout');
+        $requestData = [
+            'username' => 'Another Test User',
+            'email' => 'test@itobuz.com',
+            'password' => 'test@123'
+        ];
+        $response = $this->json('POST', 'api/users/', $requestData);
 
-        $response->assertJson(['message' => 'User logged out successfully!!']);
+        $response->assertJson(['message' => 'Created user-data']);
     }
+
+    public function testJsonGetUserData()
+    {
+        $checkUserData = array([
+            'id' => 2,
+            'name' => 'Palash Chanda'
+        ],
+        [
+            'id' => 9,
+            'name' => 'Saikat Mitra'
+        ]
+        );
+
+        $response = $this->json('GET','api/users/');
+
+        $response->assertJson(['data' => $checkUserData]);
+
+        $response->assertStatus(200);
+    }
+
+    public function testJsonGetUserDataById()
+    {
+        $checkUserData = [
+            'name' => 'Saikat Mitra'
+        ];
+         $response = $this->json('GET','api/user/33');
+
+         $response->assertJson(['data' => $checkUserData]);
+
+         $response->assertStatus(200);
+
+    }
+
+    public function testJsonUpdateUserData()
+    {
+        $requestData = [
+            'username' => 'Saikat Mitra updated',
+            'email' => 'mitra@itobuz.com',
+            'password' => Hash::make('mitra@123')
+        ];
+
+        $response = $this->json('PUT','api/user/33',$requestData);
+
+        $response->assertJson(['message' => 'UserData updated successfully']);
+
+        $response->assertStatus(200);
+
+    }
+
+    public function testJsonDeleteUserData()
+    {
+        $response = $this->json('GET', 'api/user-delete/33');
+
+        $response->assertJson(['message' => 'User data deleted']);
+
+        $response->assertStatus(200);
+    }
+    // public function testJsonUserLogout()
+    // {
+    //     $response = $this->json('POST', 'api/logout');
+
+    //     $response->assertJson(['message' => 'User logged out successfully!!']);
+    // }
     
 }

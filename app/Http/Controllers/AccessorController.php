@@ -10,10 +10,10 @@ use App\Http\Requests\PostDataRequest;
 class AccessorController extends Controller
 {
 
-	public function __construct()
-    {
-        $this->middleware('auth:api', ['except' => ['login']]);
-    }
+	// public function __construct()
+ //    {
+ //        $this->middleware('auth:api', ['except' => ['login']]);
+ //    }
  
     public function getPostData()
     {

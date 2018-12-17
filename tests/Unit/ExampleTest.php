@@ -40,11 +40,39 @@ class ExampleTest extends TestCase
     	$this->assertTrue(true);
     }
 
-    public function testaAddUserData()
+    public function testAddUserData()
     {
     	$this->post('api/users/');
 
     	$this->assertTrue(true);
+    }
+
+    public function testGetUserData()
+    {
+        $this->get('api/users/');
+
+        $this->assertTrue(true);
+    }
+
+    public function testGetUserDataById()
+    {
+        $this->get('api/user/33');
+
+        $this->assertTrue(true);
+    }
+
+    public function testUpdateUserData()
+    {
+        $this->put('api/user/33');
+
+        $this->assertTrue(true);
+    }
+
+    public function deleteUserData()
+    {
+        $this->get('user-delete/33');
+
+        $this->assertTrue(true);
     }
 
     public function testUpdatePostData()
