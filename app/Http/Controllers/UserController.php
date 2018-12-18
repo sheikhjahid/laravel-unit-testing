@@ -10,6 +10,10 @@ use Auth;
 use JWTAuth;
 class UserController extends Controller
 {
+    // public function __construct()
+    // {
+    //     $this->middleware('auth:api', ['except' => ['login']]);
+    // }
 
 	public function addUserData(UserDataRequest $request)
     {
@@ -42,9 +46,10 @@ class UserController extends Controller
             return response()->json(['message' => 'Unauthorized'], 401);
         }
         return response()->json([
-        	'message' => 'User logged-in successfully',
-            'user_details' => Auth::user(),
-            'access_token' => $token
+        	'status' => 'success',
+            'code' => 200,
+            'data' => Auth::user(),
+            'token' => $token
         ]);	
     }
 

@@ -18,20 +18,19 @@ Route::get('/', function()
 	return "welcome to the testing app";
 });
 
-// Route::post('users', 'UserController@addUserData');
+Route::post('users', 'UserController@addUserData');
 
-// Route::post('login', 'UserController@login');
+Route::post('login', 'UserController@login');
 
-// Route::middleware('jwt.auth')->get('users', function() {
-//     return auth('api')->user;
+Route::middleware('jwt.auth')->get('users', function() {
+    return auth('api')->user;
     
-// });
+});
 
-// Route::group([
-// 	'middleware' => 'api',
-// 	'prefix' => 'test'
-// ], function($router)
-// {
+Route::group([
+	'middleware' => 'api'
+], function($router)
+{
 	Route::get('posts','AccessorController@getPostData');
 
 	Route::get('post/{id}', 'AccessorController@getPostDataById');
@@ -42,8 +41,6 @@ Route::get('/', function()
 
 	Route::post('posts', 'AccessorController@addPostData');
 
-	Route::post('users', 'UserController@addUserData');
-
 	Route::get('users', 'UserController@getUserData');
 
 	Route::get('user/{id}', 'UserController@getUserDataById');
@@ -52,7 +49,7 @@ Route::get('/', function()
 
 	Route::get('user-delete/{id}', 'UserController@deleteUserData');
 
-// });
+});
 Route::post('logout', 'UserController@logout');
 
 
