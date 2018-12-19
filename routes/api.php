@@ -22,6 +22,8 @@ Route::post('users', 'UserController@addUserData');
 
 Route::post('login', 'UserController@login');
 
+Route::get('me', 'UserController@getLoggedInUser');
+
 Route::middleware('jwt.auth')->get('users', function() {
     return auth('api')->user;
     
